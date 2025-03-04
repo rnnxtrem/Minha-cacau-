@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'SF Pro Display', Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.5);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .btn {
+            padding: 12px;
+            margin: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background: #ff3b30;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #ff5f50;
+        }
+
+        .console {
+            background: #121212;
+            color: #ff3b30;
+            font-family: monospace;
+            border: 1px solid #ff3b30;
+            padding: 10px;
+            height: 150px;
+            overflow-y: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Bem-vindo ao Painel</h2>
+    <button class="btn" onclick="executeCommand('Ativar AimBot')">Ativar AimBot</button>
+    <button class="btn" onclick="executeCommand('Ativar AimLock')">Ativar AimLock</button>
+    <button class="btn" onclick="logout()">Sair</button>
+
+    <div class="console" id="console-output">
+        <p>Console pronto...</p>
+    </div>
+</div>
+
+<script>
+    // Verifica se o usuário está logado
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
+    }
+
+    function executeCommand(command) {
+        const consoleElement = document.getElementById("console-output");
+        consoleElement.innerHTML += `> ${command}<br/>`;
+        consoleElement.scrollTop = consoleElement.scrollHeight;
+
+        // No futuro, aqui você pode carregar arquivos JS para executar ações reais
+    }
+
+    function logout() {
+        localStorage.removeItem("isLoggedIn");
+        window.location.href = "login.html";
+    }
+</script>
+
+</body>
+</html>
