@@ -3,93 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel</title>
+    <title>Tela de Login</title>
     <style>
         body {
             margin: 0;
-            font-family: 'SF Pro Display', Arial, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
+            font-family: Arial, sans-serif;
+            background: #000000;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
-            text-align: center;
+            overflow: hidden;
         }
 
         .container {
+            display: flex;
             background: #2c2c2c;
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.5);
+            max-width: 1000px;
             width: 90%;
-            max-width: 500px;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            animation: fadeIn 1s forwards;
         }
 
-        .btn {
+        .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #FF0000;
+        }
+
+        .info p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            flex: 1;
+            background: #3a3a3a;
+            padding: 30px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #FF0000;
+        }
+
+        .login-form input {
+            width: 100%;
             padding: 12px;
-            margin: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: #4a4a4a;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        .login-form input:focus {
+            background: #6a6a6a;
+        }
+
+        .login-form button {
+            padding: 12px;
             width: 100%;
             border: none;
-            border-radius: 10px;
-            background: #ff3b30;
+            border-radius: 5px;
+            background: #FF0000;
             color: #fff;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
         }
 
+        .login-form button:hover {
+            background: #FF0000;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Pós-login */
+        .container-system {
+            width: 400px;
+            padding: 20px;
+            background: linear-gradient(145deg, #b1b1b1, #000000);
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(255, 0, 0, 0.8);
+            text-align: center;
+            color: white;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FF0000;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .title-logo {
+            font-size: 24px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            margin: 10px 0;
+            background-color: #ff0000;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+        }
+
         .btn:hover {
-            background: #ff5f50;
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.7);
+        }
+
+        .btn.active {
+            background-color: #2d9d32;
         }
 
         .console {
-            background: #121212;
-            color: #ff3b30;
+            background-color: #121212;
+            color: #53ff1e;
             font-family: monospace;
-            border: 1px solid #ff3b30;
+            border: 1px solid #ff0000;
             padding: 10px;
             height: 150px;
             overflow-y: auto;
             margin-top: 10px;
-            border-radius: 10px;
+            border-radius: 8px;
             text-align: left;
+        }
+
+        .footer {
+            font-size: 12px;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .greeting {
+            font-size: 14px;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        /* Novo estilo para a barra de sensibilidade */
+        .sensitivity-container {
+            margin-top: 20px;
+        }
+
+        .sensitivity-label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #ff0000;
+        }
+
+        .sensitivity-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .sensitivity-value {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Bem-vindo ao Painel</h2>
-    <button class="btn" onclick="executeCommand('Ativar AimBot')">Ativar AimBot</button>
-    <button class="btn" onclick="executeCommand('Ativar AimLock')">Ativar AimLock</button>
-    <button class="btn" onclick="logout()">Sair</button>
-
-    <div class="console" id="console-output">
-        <p>Console pronto...</p>
+<!-- Tela de Login -->
+<div class="container" id="login-container">
+    <div class="info">
+        <h1>Desire Xiter</h1>
+        <p>Bem-vindo, por favor, faça login para continuar.</p>
+    </div>
+    <div class="login-form">
+        <h2>Login</h2>
+        <img src="https://i.ibb.co/MGYKd4K/caveira.png" alt="Caveira" style="width: 100px; margin: 20px auto;">
+        <input type="text" id="username" placeholder="Usuário">
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="login()">Entrar</button>
     </div>
 </div>
 
+<!-- Tela do Sistema (pós-login) -->
+<div class="container-system hidden" id="system-container">
+    <div class="title">
+        <img src="https://i.imgur.com/QCwoCOc.png" alt="Ícone de Caveira" style="width: 85px; height: 80px;">
+        <span class="title-logo">𝘿𝙚𝙨𝙞𝙧𝙚 𝙭𝙞𝙩𝙚𝙧𝙨</span>
+    </div>
+    <button class="btn" id="aimbot-btn" onclick="toggleFeature('AimBot', this)">Ativar AimBot</button>
+    <button class="btn" id="touch-btn" onclick="toggleFeature('Touch Response', this)">Ativar Resposta ao Toque</button>
+    <button class="btn" id="aimlock-btn" onclick="toggleFeature('AimLock Sensi', this)">Ativar Sensibilidade AimLock</button>
+    <button class="btn" id="headtrick-btn" onclick="toggleFeature('HeadTrick Codes', this)">Ativar Códigos HeadTrick</button>
+
+    <!-- Seção de Ajuste de Sensibilidade -->
+    <div class="sensitivity-container">
+        <label class="sensitivity-label" for="sensitivity-slider">Ajuste de Sensibilidade:</label>
+        <input type="range" id="sensitivity-slider" class="sensitivity-slider" min="0" max="200" value="100" step="1" oninput="updateSensitivityValue(this.value)">
+        <div class="sensitivity-value" id="sensitivity-value">100</div>
+    </div>
+
+    <div class="console" id="console-output">
+        <p>Olá chefe! Hora de xitar😈!</p>
+    </div>
+    <button class="btn" onclick="clearConsole()">Limpar Console</button>
+    <div class="footer">
+        <p>&copy; Seja consciente de suas ações. @ruann_hsw.</p>
+        <p class="greeting">Olá, <span id="user-greeting"></span></p>
+    </div>
+</div>
+
+<!-- Script -->
 <script>
-    // Verifica se o usuário está logado
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-        window.location.href = "login.html";
+    document.addEventListener('DOMContentLoaded', function() {
+        loadLoginData();
+    });
+
+    // Carregar dados de login do arquivo JSON
+    async function loadLoginData() {
+        try {
+            const response = await fetch('login.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            localStorage.setItem('loginData', JSON.stringify(data));
+            console.log("Login carregado com sucesso!", data);
+            return data;
+        } catch (error) {
+            console.error("Erro ao carregar o JSON:", error);
+            const storedData = localStorage.getItem('loginData');
+            if (storedData) {
+                return JSON.parse(storedData);
+            }
+            return [];
+        }
     }
 
-    function executeCommand(command) {
-        const consoleElement = document.getElementById("console-output");
-        consoleElement.innerHTML += `> ${command}<br/>`;
-        consoleElement.scrollTop = consoleElement.scrollHeight;
+    // Função de login
+    async function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        console.log("Tentando login com:", username, password);
 
-        // No futuro, aqui você pode carregar arquivos JS para executar ações reais
+        let loginData;
+        try {
+            loginData = await loadLoginData();
+            console.log("Logins carregados: ", loginData);
+
+            const validUser = loginData.find(user => 
+                user.username === username && user.password === password
+            );
+
+            if (validUser) {
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('system-container').classList.remove('hidden');
+                document.getElementById('user-greeting').textContent = username;
+            } else {
+                alert('Usuário ou senha inválidos!');
+            }
+        } catch (error) {
+            console.error("Erro no processo de login:", error);
+            alert('Erro ao verificar login. Tente novamente mais tarde.');
+        }
     }
 
-    function logout() {
-        localStorage.removeItem("isLoggedIn");
-        window.location.href = "login.html";
+    // Função para alternar funcionalidades
+    function toggleFeature(feature, button) {
+        const buttonText = button.innerText;
+        if (button.classList.contains('active')) {
+            button.classList.remove('active');
+            button.innerText = `Ativar ${feature}`;
+            consoleLog(`${feature} desativado.`);
+        } else {
+            button.classList.add('active');
+            button.innerText = `Desativar ${feature}`;
+            consoleLog(`${feature} ativado.`);
+        }
+    }
+
+    // Função para adicionar texto ao console
+    function consoleLog(message) {
+        const consoleOutput = document.getElementById('console-output');
+        const p = document.createElement('p');
+        p.textContent = message;
+        consoleOutput.appendChild(p);
+        consoleOutput.scrollTop = consoleOutput.scrollHeight; // rolar para o final
+    }
+
+    // Função para limpar o console
+    function clearConsole() {
+        const consoleOutput = document.getElementById('console-output');
+        consoleOutput.innerHTML = '';
+    }
+
+    // Atualizar valor de sensibilidade
+    function updateSensitivityValue(value) {
+        document.getElementById('sensitivity-value').textContent = value;
     }
 </script>
-
 </body>
 </html>
